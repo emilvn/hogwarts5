@@ -66,7 +66,13 @@ public class Student {
   }
 
   public String getFullName() {
-    return middleName == null ? firstName + " " + lastName : firstName + " " + middleName + " " + lastName;
+    if(lastName == null){
+      return firstName;
+    }
+    if(middleName == null){
+      return firstName + " " + lastName;
+    }
+    return firstName + " " + middleName + " " + lastName;
   }
 
   public String capitalize(String s){
