@@ -3,6 +3,7 @@ package dk.kea.dat3js.hogwarts5.student;
 import dk.kea.dat3js.hogwarts5.house.HouseService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,18 @@ public class StudentService {
 
   public Optional<StudentResponseDTO> findPrefectById(int id){
     return studentRepository.findByPrefectTrueAndId(id).map(this::toDTO);
+  }
+
+  public List<StudentResponseDTO> findAllPrefectsByHouseName(String houseName){
+    var house = houseService.findById(houseName).orElse(null);
+    if(house == null){
+      return new ArrayList<>();
+    }
+    return studentRepository
+            .findByPrefectTrueAndHouse(house)
+            .stream()
+            .map(this::toDTO)
+            .toList();
   }
   public StudentResponseDTO save(StudentRequestDTO student) {
     return toDTO(studentRepository.save(fromDTO(student)));
@@ -88,7 +101,7 @@ public class StudentService {
     return existingStudent;
   }
 
-  private StudentResponseDTO toDTO(Student studentEntity) {
+  public StudentResponseDTO toDTO(Student studentEntity) {
     return new StudentResponseDTO(
         studentEntity.getId(),
         studentEntity.getFirstName(),

@@ -1,9 +1,11 @@
 package dk.kea.dat3js.hogwarts5.prefect;
 
+import dk.kea.dat3js.hogwarts5.house.HouseService;
 import dk.kea.dat3js.hogwarts5.student.StudentResponseDTO;
 import dk.kea.dat3js.hogwarts5.student.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +33,10 @@ public class PrefectService {
             return Optional.empty();
         }
         return studentService.findPrefectById(id);
+    }
+
+    public List<StudentResponseDTO> findAllByHouseName(String houseName){
+        return studentService.findAllPrefectsByHouseName(houseName);
     }
 
     public Optional<StudentResponseDTO> setPrefect(Integer id){

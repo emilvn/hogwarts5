@@ -20,10 +20,16 @@ public class PrefectController {
     public ResponseEntity<List<StudentResponseDTO>> getAllPrefects(){
         return ResponseEntity.ok(prefectService.findAll());
     }
-    //TODO: GET /prefects/:id - returnerer en prefect (ud fra student-id) hvis den pågældende student er prefect
+
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponseDTO> getPrefectById(@PathVariable Integer id){
         return ResponseEntity.of(prefectService.findById(id));
+    }
+
+    //TODO: GET /prefects/house/{house} - returnerer en liste over alle prefects i det house
+    @GetMapping("/house/{houseName}")
+    public ResponseEntity<List<StudentResponseDTO>> getPrefectsByHouse(@PathVariable String houseName){
+        return ResponseEntity.ok(prefectService.findAllByHouseName(houseName));
     }
 
     @PostMapping
@@ -33,7 +39,6 @@ public class PrefectController {
 
 
 
-    //TODO: GET /prefects/house/{house} - returnerer en liste over alle prefects i det house
 
     //TODO: DELETE /prefects/:id - fratager den pågældende student rollen som prefect.
 }
