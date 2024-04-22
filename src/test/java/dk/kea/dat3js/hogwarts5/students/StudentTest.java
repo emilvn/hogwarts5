@@ -11,14 +11,8 @@ class StudentTest {
         var student = new Student("Firstname", "Middlename", "Lastname", null, 0);
 
         var fullName = student.getFullName();
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
 
         assertEquals(fullName, "Firstname Middlename Lastname");
-        assertEquals(firstName, "Firstname");
-        assertEquals(middleName, "Middlename");
-        assertEquals(lastName, "Lastname");
     }
 
     @Test
@@ -26,14 +20,8 @@ class StudentTest {
         var student = new Student("Firstname", "Lastname", null, 0);
 
         var fullName = student.getFullName();
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
 
         assertEquals(fullName, "Firstname Lastname");
-        assertEquals(firstName, "Firstname");
-        assertNull(middleName);
-        assertEquals(lastName, "Lastname");
     }
 
     @Test
@@ -41,27 +29,21 @@ class StudentTest {
         var student = new Student();
 
         student.setFullName("");
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
 
-        assertEquals(firstName, "");
-        assertNull(middleName);
-        assertNull(lastName);
+        assertEquals(student.getFirstName(), "");
+        assertNull(student.getMiddleName());
+        assertNull(student.getLastName());
     }
 
     @Test
     void setFullNameWithNull(){
-        var student = new Student("Firstname", "Lastname", null, 0);
+        var student = new Student("Firstname", "Middlename", "Lastname", null, 0);
 
         student.setFullName(null);
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
 
-        assertEquals(firstName, "Firstname");
-        assertNull(middleName);
-        assertEquals(lastName,"Lastname");
+        assertEquals(student.getFirstName(), "Firstname");
+        assertEquals(student.getMiddleName(), "Middlename");
+        assertEquals(student.getLastName(),"Lastname");
     }
 
     @Test
@@ -69,13 +51,10 @@ class StudentTest {
         var student = new Student();
 
         student.setFullName("Firstname");
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
 
-        assertEquals(firstName, "Firstname");
-        assertNull(middleName);
-        assertNull(lastName);
+        assertEquals(student.getFirstName(), "Firstname");
+        assertNull(student.getMiddleName());
+        assertNull(student.getLastName());
     }
 
     @Test
@@ -105,39 +84,28 @@ class StudentTest {
         var student = new Student();
 
         student.setFullName("Firstname Lastname");
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
 
-        assertEquals(firstName, "Firstname");
-        assertNull(middleName);
-        assertEquals(lastName, "Lastname");
+        assertEquals(student.getFirstName(), "Firstname");
+        assertNull(student.getMiddleName());
+        assertEquals(student.getLastName(), "Lastname");
 
     }
 
     @Test
-    void capitalizeNamePartsWithOneMiddleName(){
-        var student = new Student("fiRsTnAmE", "MiDdLenAme", "lAstnAme", null, 0);
+    void capitalizeSingleWord(){
+        var student = new Student();
 
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
+        var capitalized = student.capitalize("cApiTalIze");
 
-        assertEquals(firstName, "Firstname");
-        assertEquals(middleName, "Middlename");
-        assertEquals(lastName, "Lastname");
+        assertEquals(capitalized, "Capitalize");
     }
 
     @Test
-    void capitalizeNamePartsWithMultipleMiddleNames(){
-        var student = new Student("fiRsTnAmE", "MiDdLenAme1 mIddLeNamE2 mIddlEnAme3", "lAstnAme", null, 0);
+    void capitalizeMultipleWords(){
+        var student = new Student();
 
-        var firstName = student.getFirstName();
-        var middleName = student.getMiddleName();
-        var lastName = student.getLastName();
+        var capitalized = student.capitalize("cApiTalIze tHiS StrInG");
 
-        assertEquals(firstName, "Firstname");
-        assertEquals(middleName, "Middlename1 Middlename2 Middlename3");
-        assertEquals(lastName, "Lastname");
+        assertEquals(capitalized, "Capitalize This String");
     }
 }

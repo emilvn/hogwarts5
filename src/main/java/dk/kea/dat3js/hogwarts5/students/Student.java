@@ -26,9 +26,9 @@ public class Student {
   }
 
   public Student(String firstName, String middleName, String lastName, House house, int schoolYear) {
-    this.firstName = firstName;
-    this.middleName = middleName;
-    this.lastName = lastName;
+    setFirstName(firstName);
+    setMiddleName(middleName);
+    setLastName(lastName);
     this.house = house;
     this.schoolYear = schoolYear;
   }
@@ -42,31 +42,31 @@ public class Student {
   }
 
   public String getFirstName() {
-    return capitalize(firstName);
+    return firstName;
   }
 
   public void setFirstName(String firstName) {
-    this.firstName = firstName;
+    this.firstName = capitalize(firstName);
   }
 
   public String getMiddleName() {
-    return capitalize(middleName);
+    return middleName;
   }
 
   public void setMiddleName(String middleName) {
-    this.middleName = middleName;
+    this.middleName = capitalize(middleName);
   }
 
   public String getLastName() {
-    return capitalize(lastName);
+    return lastName;
   }
 
   public void setLastName(String lastName) {
-    this.lastName = lastName;
+    this.lastName = capitalize(lastName);
   }
 
   public String getFullName() {
-    return getMiddleName() == null ? getFirstName() + " " + getLastName() : getFirstName() + " " + getMiddleName() + " " + getLastName();
+    return middleName == null ? firstName + " " + lastName : firstName + " " + middleName + " " + lastName;
   }
 
   public String capitalize(String s){
@@ -74,8 +74,12 @@ public class Student {
       return null;
     }
     if(s.isEmpty()){
-      return s;
+      return "";
     }
+    if(s.length() == 1){
+      return s.toUpperCase();
+    }
+
     s = s.trim();
     if(s.contains(" ")){
       var parts = s.split(" ");
