@@ -27,6 +27,10 @@ public class StudentService {
   public List<StudentResponseDTO> findAllPrefects(){
     return studentRepository.findAllByPrefectIsTrue().stream().map(this::toDTO).toList();
   }
+
+  public Optional<StudentResponseDTO> findPrefectById(int id){
+    return studentRepository.findByPrefectTrueAndId(id).map(this::toDTO);
+  }
   public StudentResponseDTO save(StudentRequestDTO student) {
     return toDTO(studentRepository.save(fromDTO(student)));
   }

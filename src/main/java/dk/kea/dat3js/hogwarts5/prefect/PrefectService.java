@@ -26,7 +26,13 @@ public class PrefectService {
         return studentService.findAllPrefects();
     }
 
-    //TODO: POST /prefects - modtager en student (eller et student-id) og udnævner vedkommende til prefect
+    public Optional<StudentResponseDTO> findById(Integer id){
+        if(id == null){
+            return Optional.empty();
+        }
+        return studentService.findPrefectById(id);
+    }
+
     public Optional<StudentResponseDTO> setPrefect(Integer id){
         return studentService.setPrefect(id);
     }

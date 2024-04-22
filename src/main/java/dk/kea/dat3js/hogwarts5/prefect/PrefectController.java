@@ -20,13 +20,18 @@ public class PrefectController {
     public ResponseEntity<List<StudentResponseDTO>> getAllPrefects(){
         return ResponseEntity.ok(prefectService.findAll());
     }
+    //TODO: GET /prefects/:id - returnerer en prefect (ud fra student-id) hvis den pågældende student er prefect
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponseDTO> getPrefectById(@PathVariable Integer id){
+        return ResponseEntity.of(prefectService.findById(id));
+    }
 
-    //TODO: POST /prefects - modtager en student (eller et student-id) og udnævner vedkommende til prefect
     @PostMapping
     public ResponseEntity<StudentResponseDTO> setPrefect(@RequestBody StudentRequestDTO studentDto){
         return ResponseEntity.of(prefectService.setPrefect(studentDto.id()));
     }
-    //TODO: GET /prefects/:id - returnerer en prefect (ud fra student-id) hvis den pågældende student er prefect
+
+
 
     //TODO: GET /prefects/house/{house} - returnerer en liste over alle prefects i det house
 
