@@ -20,4 +20,9 @@ public class HouseService {
     public Optional<House> findById(String name) {
         return houseRepository.findById(name);
     }
+    public void save(House house){
+        if(house != null){
+            houseRepository.save(house);
+        }
+    }
 }

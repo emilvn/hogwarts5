@@ -1,4 +1,4 @@
-package dk.kea.dat3js.hogwarts5.teachers;
+package dk.kea.dat3js.hogwarts5.teacher;
 
 import dk.kea.dat3js.hogwarts5.house.HouseService;
 import org.springframework.stereotype.Service;

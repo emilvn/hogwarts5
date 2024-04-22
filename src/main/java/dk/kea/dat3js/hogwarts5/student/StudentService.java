@@ -1,4 +1,4 @@
-package dk.kea.dat3js.hogwarts5.students;
+package dk.kea.dat3js.hogwarts5.student;
 
 import dk.kea.dat3js.hogwarts5.house.HouseService;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,9 @@ public class StudentService {
     return studentRepository.findById(id).map(this::toDTO);
   }
 
+  public List<StudentResponseDTO> findAllPrefects(){
+    return studentRepository.findAllByPrefectIsTrue().stream().map(this::toDTO).toList();
+  }
   public StudentResponseDTO save(StudentRequestDTO student) {
     return toDTO(studentRepository.save(fromDTO(student)));
   }
@@ -65,6 +68,16 @@ public class StudentService {
     }
   }
 
+  public Optional<StudentResponseDTO> setPrefect(Integer id){
+    var studentEntity = studentRepository.findById(id).orElse(null);
+    if(studentEntity == null){
+      return Optional.empty();
+    }
+    studentEntity.setPrefect(true);
+    houseService.save(studentEntity.getHouse());
+    return Optional.of(toDTO(studentRepository.save(studentEntity)));
+  }
+
   public Optional<StudentResponseDTO> deleteById(int id) {
     Optional<StudentResponseDTO> existingStudent = studentRepository.findById(id).map(this::toDTO);
     studentRepository.deleteById(id);
@@ -88,6 +101,7 @@ public class StudentService {
         studentDTO.firstName(),
         studentDTO.middleName(),
         studentDTO.lastName(),
+        studentDTO.isMale(),
         houseService.findById(studentDTO.house()).orElseThrow(),
         studentDTO.schoolYear()
     );
@@ -98,4 +112,6 @@ public class StudentService {
 
     return entity;
   }
+
+  //TODO: /students skal ligeledes have en PATCH request for at tilføje/fjerne prefect udnævnelsen - men bruge samme regler som /prefects
 }

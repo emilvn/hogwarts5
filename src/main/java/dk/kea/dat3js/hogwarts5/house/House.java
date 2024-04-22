@@ -1,7 +1,14 @@
 package dk.kea.dat3js.hogwarts5.house;
 
+import dk.kea.dat3js.hogwarts5.student.Student;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 public class House {
@@ -10,6 +17,9 @@ public class House {
   private String founder;
   private String color1;
   private String color2;
+
+  @OneToMany
+  private List<Student> prefects = new ArrayList<>();
 
   public House() {}
 
@@ -26,6 +36,41 @@ public class House {
 
   public String getFounder() {
     return founder;
+  }
+
+  public List<Student> getPrefects(){
+    return prefects;
+  }
+
+  public void setPrefects(List<Student> prefects){
+    this.prefects = prefects;
+  }
+
+  public boolean addPrefect(Student prefect){
+    if(prefect == null){
+      return false;
+    }
+    if(!name.equals(prefect.getHouse().getName())){
+      return false;
+    }
+    if(prefects.isEmpty()){
+      prefects.add(prefect);
+      return true;
+    }
+    if(prefects.size() == 1){
+      if(prefects.getFirst().isMale() != prefect.isMale()){
+        prefects.add(prefect);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public void removePrefect(Student prefect){
+    prefects = prefects
+            .stream()
+            .filter(p -> p.getId() != prefect.getId())
+            .collect(Collectors.toList());
   }
 
   public String[] getColors() {

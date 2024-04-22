@@ -1,20 +1,18 @@
 package dk.kea.dat3js.hogwarts5.config;
 
 import dk.kea.dat3js.hogwarts5.house.HouseRepository;
-import dk.kea.dat3js.hogwarts5.students.Student;
-import dk.kea.dat3js.hogwarts5.students.StudentRepository;
-import dk.kea.dat3js.hogwarts5.teachers.Teacher;
-import dk.kea.dat3js.hogwarts5.teachers.TeacherRepository;
+import dk.kea.dat3js.hogwarts5.student.Student;
+import dk.kea.dat3js.hogwarts5.student.StudentRepository;
+import dk.kea.dat3js.hogwarts5.teacher.Teacher;
+import dk.kea.dat3js.hogwarts5.teacher.TeacherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import dk.kea.dat3js.hogwarts5.house.House;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class InitData implements CommandLineRunner {
@@ -41,18 +39,18 @@ public class InitData implements CommandLineRunner {
     Set<Student> existingStudents = new HashSet<>();
     existingStudents.addAll(studentRepository.findAll());
 
-    Student harry = new Student("Harry", "James", "Potter", gryffindor, 5);
-    Student hermione = new Student("Hermione", "Jean", "Granger", gryffindor, 5);
-    Student ron = new Student("Ron", "Bilius", "Weasley", gryffindor, 5);
-    Student neville = new Student("Neville", "Frank", "Longbottom", gryffindor, 5);
-    Student ginny = new Student("Ginny", "Molly", "Weasley", gryffindor, 5);
-    Student fred = new Student("Fred", "Gideon", "Weasley", gryffindor, 5);
-    Student george = new Student("George", "Fabian", "Weasley", gryffindor, 5);
-    Student percy = new Student("Percy", "Ignatius", "Weasley", gryffindor, 5);
+    Student harry = new Student("Harry", "James", "Potter", true, gryffindor, 5);
+    Student hermione = new Student("Hermione", "Jean", "Granger",  false, gryffindor, 5);
+    Student ron = new Student("Ron", "Bilius", "Weasley", true, gryffindor, 5);
+    Student neville = new Student("Neville", "Frank", "Longbottom", true, gryffindor, 5);
+    Student ginny = new Student("Ginny", "Molly", "Weasley", false, gryffindor, 5);
+    Student fred = new Student("Fred", "Gideon", "Weasley", true, gryffindor, 5);
+    Student george = new Student("George", "Fabian", "Weasley", true, gryffindor, 5);
+    Student percy = new Student("Percy", "Ignatius", "Weasley", true, gryffindor, 5);
 
-    Student draco = new Student("Draco","Malfoy", slytherin, 5);
-    Student cedric = new Student("Cedric","Diggory", hufflepuff, 6);
-    Student luna = new Student("Luna", "Lovegood", ravenclaw, 4);
+    Student draco = new Student("Draco","Malfoy", true, slytherin, 5);
+    Student cedric = new Student("Cedric","Diggory", true, hufflepuff, 6);
+    Student luna = new Student("Luna", "Lovegood", false, ravenclaw, 4);
 
     existingStudents.addAll(List.of(harry, hermione, ron, neville, ginny, fred, george, percy, draco, cedric, luna));
     studentRepository.saveAll(existingStudents);

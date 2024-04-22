@@ -1,4 +1,4 @@
-package dk.kea.dat3js.hogwarts5.students;
+package dk.kea.dat3js.hogwarts5.student;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,4 +47,6 @@ public class StudentController {
   public ResponseEntity<StudentResponseDTO> deleteStudent(@PathVariable int id) {
     return ResponseEntity.of(studentService.deleteById(id));
   }
+
+  //TODO: /students skal ligeledes have en PATCH request for at tilføje/fjerne prefect udnævnelsen - men bruge samme regler som /prefects
 }

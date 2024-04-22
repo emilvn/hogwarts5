@@ -1,6 +1,10 @@
-package dk.kea.dat3js.hogwarts5.students;
+package dk.kea.dat3js.hogwarts5.student;
 
+import dk.kea.dat3js.hogwarts5.house.House;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +12,7 @@ class StudentTest {
 
     @Test
     void getFullNameWithMiddleName() {
-        var student = new Student("Firstname", "Middlename", "Lastname", null, 0);
+        var student = new Student("Firstname", "Middlename", "Lastname", true, null, 0);
 
         var fullName = student.getFullName();
 
@@ -17,7 +21,7 @@ class StudentTest {
 
     @Test
     void getFullNameWithNoMiddleName(){
-        var student = new Student("Firstname", "Lastname", null, 0);
+        var student = new Student("Firstname", "Lastname", true, null, 0);
 
         var fullName = student.getFullName();
 
@@ -37,7 +41,7 @@ class StudentTest {
 
     @Test
     void setFullNameWithNull(){
-        var student = new Student("Firstname", "Middlename", "Lastname", null, 0);
+        var student = new Student("Firstname", "Middlename", "Lastname", true, null, 0);
 
         student.setFullName(null);
 
@@ -107,5 +111,62 @@ class StudentTest {
         var capitalized = student.capitalize("cApiTalIze tHiS StrInG");
 
         assertEquals(capitalized, "Capitalize This String");
+    }
+
+    @Test
+    void setPrefectTooLowSchoolyear(){
+        var house = new House("House", "Founder", new String[] {"white", "black"});
+        var student = new Student("first", "last", true, house, 4);
+
+        student.setPrefect(true);
+
+        assertFalse(student.isPrefect());
+    }
+
+    @Test
+    void setPrefectFifthSchoolyear(){
+        var house = new House("House", "Founder", new String[] {"white", "black"});
+        var student = new Student("first", "last", true, house, 5);
+
+        student.setPrefect(true);
+
+        assertTrue(student.isPrefect());
+    }
+
+    @Test
+    void setPrefectSameGender(){
+        var house = new House("House", "Founder", new String[] {"white", "black"});
+        var maleStudent1 = new Student("first", "last", true, house, 5);
+        var maleStudent2 = new Student("first", "last", true, house, 5);
+        house.setPrefects(List.of(maleStudent2));
+
+        maleStudent1.setPrefect(true);
+
+        assertFalse(maleStudent1.isPrefect());
+    }
+
+    @Test
+    void setPrefectAlreadyTwoPrefects(){
+        var house = new House("House", "Founder", new String[] {"white", "black"});
+        var student1 = new Student("first", "last", true, house, 5);
+        var student2 = new Student("first", "last", true, house, 5);
+        var student3 = new Student("first", "last", false, house, 5);
+        house.setPrefects(List.of(student2, student3));
+
+        student1.setPrefect(true);
+
+        assertFalse(student1.isPrefect());
+    }
+
+    @Test
+    void setPrefectDifferentGender(){
+        var house = new House("House", "Founder", new String[] {"white", "black"});
+        var maleStudent = new Student("first", "last", true, house, 5);
+        var femaleStudent = new Student("first", "last", false, house, 5);
+        house.setPrefects(new ArrayList<>(List.of(femaleStudent)));
+
+        maleStudent.setPrefect(true);
+
+        assertTrue(maleStudent.isPrefect());
     }
 }

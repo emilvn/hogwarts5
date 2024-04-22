@@ -1,10 +1,9 @@
-package dk.kea.dat3js.hogwarts5.students;
+package dk.kea.dat3js.hogwarts5.student;
 
 import dk.kea.dat3js.hogwarts5.generic.PersonWithNames;
 import dk.kea.dat3js.hogwarts5.house.House;
 import jakarta.persistence.*;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -18,20 +17,23 @@ public class Student implements PersonWithNames {
   @ManyToOne
   private House house;
   private Integer schoolYear; // 1-7
+  private boolean prefect = false;
+  private boolean male = true;
 
   public Student() {
   }
 
-  public Student(String firstName, String lastName, House house, int schoolYear) {
-    this(firstName, null, lastName, house, schoolYear);
+  public Student(String firstName, String lastName, boolean male, House house, int schoolYear) {
+    this(firstName, null, lastName, male, house, schoolYear);
   }
 
-  public Student(String firstName, String middleName, String lastName, House house, int schoolYear) {
+  public Student(String firstName, String middleName, String lastName, boolean male, House house, int schoolYear) {
     setFirstName(firstName);
     setMiddleName(middleName);
     setLastName(lastName);
     this.house = house;
     this.schoolYear = schoolYear;
+    this.male = male;
   }
 
   public int getId() {
@@ -80,6 +82,28 @@ public class Student implements PersonWithNames {
 
   public void setSchoolYear(Integer schoolYear) {
     this.schoolYear = schoolYear;
+  }
+
+  public boolean isPrefect(){
+    return prefect;
+  }
+
+  public void setPrefect(boolean prefect){
+    if(house == null){
+      return;
+    }
+    if(schoolYear >= 5){
+      if(house.addPrefect(this)){
+        this.prefect = prefect;
+      }
+    }
+  }
+  public boolean isMale(){
+    return male;
+  }
+
+  public void setMale(boolean male){
+    this.male = male;
   }
 
   @Override

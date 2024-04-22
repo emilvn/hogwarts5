@@ -1,4 +1,4 @@
-package dk.kea.dat3js.hogwarts5.teachers;
+package dk.kea.dat3js.hogwarts5.teacher;
 
 import java.time.LocalDate;
 
