@@ -92,7 +92,8 @@ public class StudentService {
         studentEntity.getLastName(),
         studentEntity.getFullName(),
         studentEntity.getHouse().getName(),
-        studentEntity.getSchoolYear()
+        studentEntity.getSchoolYear(),
+        studentEntity.isPrefect()
     );
   }
 
