@@ -77,18 +77,16 @@ public class TeacherService {
   }
 
   private TeacherResponseDTO toDTO(Teacher teacherEntity) {
-    TeacherResponseDTO dto = new TeacherResponseDTO(
+    return new TeacherResponseDTO(
         teacherEntity.getId(),
         teacherEntity.getFirstName(),
         teacherEntity.getMiddleName(),
         teacherEntity.getLastName(),
-        teacherEntity.getFullName();
+        teacherEntity.getFullName(),
         teacherEntity.getHouse().getName(),
         teacherEntity.getMainSubject(),
         teacherEntity.getEmploymentDate()
     );
-
-    return dto;
   }
 
   private Teacher fromDTO(TeacherRequestDTO teacherDTO) {
