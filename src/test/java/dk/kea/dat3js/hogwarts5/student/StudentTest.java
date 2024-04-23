@@ -169,4 +169,19 @@ class StudentTest {
 
         assertTrue(maleStudent.isPrefect());
     }
+
+    @Test
+    void removePrefectStatus(){
+        var house = new House("House", "Founder", new String[] {"white", "black"});
+        var student1 = new Student("first", "last", true, house, 5);
+        var student2 = new Student("first", "last", false, house, 5);
+        student1.setId(1);
+        student2.setId(2);
+        house.setPrefects(List.of(student1, student2));
+
+        student1.setPrefect(false);
+
+        assertFalse(student1.isPrefect());
+        assertEquals(house.getPrefects().size(), 1);
+    }
 }

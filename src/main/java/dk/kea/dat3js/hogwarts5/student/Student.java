@@ -92,9 +92,14 @@ public class Student implements PersonWithNames {
     if(house == null){
       return;
     }
+    if(!prefect){
+      house.removePrefect(this);
+      this.prefect = false;
+      return;
+    }
     if(schoolYear >= 5){
       if(house.addPrefect(this)){
-        this.prefect = prefect;
+        this.prefect = true;
       }
     }
   }

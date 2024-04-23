@@ -4,6 +4,7 @@ import dk.kea.dat3js.hogwarts5.student.Student;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class House {
   private String color1;
   private String color2;
 
-  @OneToMany
+  @OneToMany @Transient
   private List<Student> prefects = new ArrayList<>();
 
   public House() {}

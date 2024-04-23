@@ -72,6 +72,16 @@ public class StudentService {
       if(student.lastName() != null) {
         studentToUpdate.setLastName(student.lastName());
       }
+      if(student.isMale() != null){
+        studentToUpdate.setMale(student.isMale());
+      }
+      if(student.isPrefect() != null){
+        if(student.isPrefect()){
+          setPrefect(student.id());
+        } else {
+          removePrefectStatus(student.id());
+        }
+      }
       if(student.house() != null) {
         studentToUpdate.setHouse(houseService.findById(student.house()).orElseThrow());
       }
@@ -91,6 +101,16 @@ public class StudentService {
       return Optional.empty();
     }
     studentEntity.setPrefect(true);
+    houseService.save(studentEntity.getHouse());
+    return Optional.of(toDTO(studentRepository.save(studentEntity)));
+  }
+
+  public Optional<StudentResponseDTO> removePrefectStatus(Integer id){
+    var studentEntity = studentRepository.findById(id).orElse(null);
+    if(studentEntity == null){
+      return Optional.empty();
+    }
+    studentEntity.setPrefect(false);
     houseService.save(studentEntity.getHouse());
     return Optional.of(toDTO(studentRepository.save(studentEntity)));
   }

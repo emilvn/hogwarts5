@@ -26,7 +26,6 @@ public class PrefectController {
         return ResponseEntity.of(prefectService.findById(id));
     }
 
-    //TODO: GET /prefects/house/{house} - returnerer en liste over alle prefects i det house
     @GetMapping("/house/{houseName}")
     public ResponseEntity<List<StudentResponseDTO>> getPrefectsByHouse(@PathVariable String houseName){
         return ResponseEntity.ok(prefectService.findAllByHouseName(houseName));
@@ -37,8 +36,12 @@ public class PrefectController {
         return ResponseEntity.of(prefectService.setPrefect(studentDto.id()));
     }
 
-
-
-
-    //TODO: DELETE /prefects/:id - fratager den pågældende student rollen som prefect.
+    @DeleteMapping("/{id}")
+    public ResponseEntity<StudentResponseDTO> removePrefectStatus(@PathVariable Integer id){
+        var student = prefectService.removePrefectStatus(id).orElse(null);
+        if(student == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

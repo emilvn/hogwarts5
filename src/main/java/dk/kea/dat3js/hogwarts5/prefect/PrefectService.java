@@ -43,9 +43,9 @@ public class PrefectService {
         return studentService.setPrefect(id);
     }
 
-    //TODO: GET /prefects/:id - returnerer en prefect (ud fra student-id) hvis den pågældende student er prefect
-
-    //TODO: GET /prefects/house/{house} - returnerer en liste over alle prefects i det house
+    public Optional<StudentResponseDTO> removePrefectStatus(Integer id){
+        return studentService.removePrefectStatus(id);
+    }
 
     //TODO: DELETE /prefects/:id - fratager den pågældende student rollen som prefect.
 }
