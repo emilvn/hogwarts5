@@ -23,10 +23,9 @@ Kan testes ved at sende et GET request til ´/prefects/{id}´. Id skal være id'
 Kan testes ved at sende et GET request til ´/prefects/house/{house}´. House skal være navnet på et af de 4 houses.
 
 ### /students skal ligeledes have en PATCH request for at tilføje/fjerne prefect udnævnelsen - men bruge samme regler som /prefects
-Kan testes ved at sende et PATCH request til `/students/{id}` med et student JSON objekt med minimum `id` og `isPrefect`. Studenten med det givne id skal være 5. års eller højere.
+Kan testes ved at sende et PATCH request til `/students/{id}` med et student JSON objekt med minimum `isPrefect`. Studenten med det givne id skal være 5. års eller højere.
 ```json
 {
-    "id": 2,
     "isPrefect": true
 }
 ```

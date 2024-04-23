@@ -77,9 +77,9 @@ public class StudentService {
       }
       if(student.isPrefect() != null){
         if(student.isPrefect()){
-          setPrefect(student.id());
+          setPrefect(id);
         } else {
-          removePrefectStatus(student.id());
+          removePrefectStatus(id);
         }
       }
       if(student.house() != null) {
