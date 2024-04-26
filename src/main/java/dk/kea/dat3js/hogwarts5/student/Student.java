@@ -27,13 +27,13 @@ public class Student implements PersonWithNames {
     this(firstName, null, lastName, male, house, schoolYear);
   }
 
-  public Student(String firstName, String middleName, String lastName, boolean male, House house, int schoolYear) {
+  public Student(String firstName, String middleName, String lastName, Boolean male, House house, int schoolYear) {
     setFirstName(firstName);
     setMiddleName(middleName);
     setLastName(lastName);
     this.house = house;
     this.schoolYear = schoolYear;
-    this.male = male;
+    this.male = male != null ? male : true;
   }
 
   public int getId() {

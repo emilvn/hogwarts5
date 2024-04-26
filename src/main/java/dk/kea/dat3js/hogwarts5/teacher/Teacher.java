@@ -49,7 +49,7 @@ public class Teacher implements PersonWithNames {
   }
 
   public void setFirstName(String firstName) {
-    this.firstName = firstName;
+    this.firstName = capitalize(firstName);
   }
 
   public String getMiddleName() {
