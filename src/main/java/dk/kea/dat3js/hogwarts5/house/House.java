@@ -54,6 +54,9 @@ public class House {
     if(!name.equals(prefect.getHouse().getName())){
       return false;
     }
+    if(prefect.getSchoolYear() < 5){
+      return false;
+    }
     if(prefects.isEmpty()){
       prefects.add(prefect);
       return true;
