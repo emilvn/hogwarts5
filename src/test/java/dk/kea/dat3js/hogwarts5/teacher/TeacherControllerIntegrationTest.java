@@ -1,4 +1,4 @@
-package dk.kea.dat3js.hogwarts5.student;
+package dk.kea.dat3js.hogwarts5.teacher;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-public class StudentControllerIntegrationTest {
+public class TeacherControllerIntegrationTest {
 
     @Autowired
     private WebTestClient webClient;
@@ -22,23 +22,21 @@ public class StudentControllerIntegrationTest {
     }
 
     @Test
-    void createStudentWithFullName(){
+    void createTeacherWithFullName(){
         webClient
-                .post().uri("/students")
+                .post().uri("/teachers")
                 .header("Content-Type", "application/json")
                 .bodyValue(
                         """
                         {
                             "name": "Firstname Middlename Lastname",
-                            "isMale": true,
-                            "house": "Gryffindor",
-                            "schoolYear": 7
+                            "house": "Gryffindor"
                         }
                         """
                 )
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(StudentResponseDTO.class)
+                .expectBody(TeacherResponseDTO.class)
                 .value(response -> {
                     assertEquals("Firstname", response.firstName());
                     assertEquals("Middlename", response.middleName());
@@ -48,9 +46,9 @@ public class StudentControllerIntegrationTest {
     }
 
     @Test
-    void createStudentWithNameParts(){
+    void createTeacherWithNameParts(){
         webClient
-                .post().uri("/students")
+                .post().uri("/teachers")
                 .header("Content-Type", "application/json")
                 .bodyValue(
                         """
@@ -58,15 +56,13 @@ public class StudentControllerIntegrationTest {
                             "firstName": "Firstname",
                             "middleName": "Middlename",
                             "lastName": "Lastname",
-                            "isMale": true,
-                            "house": "Gryffindor",
-                            "schoolYear": 7
+                            "house": "Gryffindor"
                         }
                         """
                 )
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(StudentResponseDTO.class)
+                .expectBody(TeacherResponseDTO.class)
                 .value(response -> {
                     assertEquals("Firstname", response.firstName());
                     assertEquals("Middlename", response.middleName());
@@ -76,36 +72,33 @@ public class StudentControllerIntegrationTest {
     }
 
     @Test
-    void updateStudentWithFullName(){
+    void updateTeacherWithFullName(){
         webClient
-                .put().uri("/students/1")
+                .put().uri("/teachers/1")
                 .header("Content-Type", "application/json")
                 .bodyValue(
                         """
                         {
                             "name": "Firstname Middlename Lastname",
-                            "isMale": true,
-                            "house": "Gryffindor",
-                            "schoolYear": 7
+                            "house": "Gryffindor"
                         }
                         """
                 )
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(StudentResponseDTO.class)
+                .expectBody(TeacherResponseDTO.class)
                 .value(response -> {
                     assertEquals("Firstname", response.firstName());
                     assertEquals("Middlename", response.middleName());
                     assertEquals("Lastname", response.lastName());
                     assertEquals("Firstname Middlename Lastname", response.name());
-                    assertEquals(7, response.schoolYear());
                 });
     }
 
     @Test
-    void updateStudentWithNameParts(){
+    void updateTeacherWithNameParts(){
         webClient
-                .put().uri("/students/1")
+                .put().uri("/teachers/1")
                 .header("Content-Type", "application/json")
                 .bodyValue(
                         """
@@ -113,54 +106,54 @@ public class StudentControllerIntegrationTest {
                             "firstName": "Firstname",
                             "middleName": "Middlename",
                             "lastName": "Lastname",
-                            "isMale": true,
-                            "house": "Gryffindor",
-                            "schoolYear": 7
+                            "house": "Gryffindor"
                         }
                         """
                 )
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(StudentResponseDTO.class)
+                .expectBody(TeacherResponseDTO.class)
                 .value(response -> {
                     assertEquals("Firstname", response.firstName());
                     assertEquals("Middlename", response.middleName());
                     assertEquals("Lastname", response.lastName());
                     assertEquals("Firstname Middlename Lastname", response.name());
-                    assertEquals(7, response.schoolYear());
                 });
     }
 
     @Test
-    void partialUpdateStudent(){
+    void partialUpdateTeacher(){
         webClient
-                .patch().uri("/students/1")
+                .patch().uri("/teachers/1")
                 .header("Content-Type", "application/json")
                 .bodyValue(
                         """
                         {
-                            "schoolYear": 9
+                            "middleName": "Middlename",
+                            "house": "Gryffindor"
                         }
                         """
                 )
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(StudentResponseDTO.class)
+                .expectBody(TeacherResponseDTO.class)
                 .value(response -> {
-                    assertEquals(9, response.schoolYear());
+                    assertEquals("Middlename", response.middleName());
+                    assertEquals("Gryffindor", response.house());
                 });
     }
 
     @Test
-    void deleteStudent(){
+    void deleteTeacher(){
         webClient
-                .delete().uri("/students/2")
+                .delete().uri("/teachers/2")
                 .exchange()
                 .expectStatus().isOk()
-                .expectBody(StudentResponseDTO.class)
+                .expectBody(TeacherResponseDTO.class)
                 .value(response -> {
                     assertEquals(2, response.id());
-                })
-        ;
+                });
     }
+
+
 }

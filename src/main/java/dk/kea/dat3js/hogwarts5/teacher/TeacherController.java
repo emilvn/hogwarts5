@@ -1,5 +1,6 @@
 package dk.kea.dat3js.hogwarts5.teacher;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,8 @@ public class TeacherController {
   }
 
   @PostMapping
-  public TeacherResponseDTO createTeacher(@RequestBody TeacherRequestDTO teacher) {
-    return teacherService.save(teacher);
+  public ResponseEntity<TeacherResponseDTO> createTeacher(@RequestBody TeacherRequestDTO teacher) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.save(teacher));
   }
 
   @PutMapping("/{id}")
